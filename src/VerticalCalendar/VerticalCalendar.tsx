@@ -23,10 +23,16 @@ export default function VerticalCalendar() {
     )
   })
 
+  const dataRangeCalculator = (dateLength: number, startDate: Date) => {
+    const startUnix = Math.floor(startDate.getTime() / 1000)
+    const lengthSecond = 60 * 60 * 24 * dateLength // lengthの秒数
+    return new Date((startUnix + lengthSecond) * 1000)
+  }
+
   return (
     <>
       <h1 className='text-cyan-700 text-2xl mt-2'>Calendar</h1>
-      <div className='flex flex-col w-screen'>
+      <div className='flex flex-col w-full'>
         <div className='flex flex-row w-full'>
           <div className='min-w-[100px] max-w-[150px]'>GMT +9:00</div>
           {weekArray}
