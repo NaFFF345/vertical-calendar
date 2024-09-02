@@ -1,5 +1,4 @@
-export default function VerticalCalendar() {
-  const displayDayLength = 6
+export default function VerticalCalendar(props: { length: number, startDate: Date }) {
   const timeArray = Array(24).fill(0).map((_, i) => {
     return (
       <div className='border-bottom border-solid border-gray-200 min-h-10 border-b-2'>
@@ -14,14 +13,18 @@ export default function VerticalCalendar() {
       return new Date((startUnix + lengthSecond * i) * 1000)
     })
   }
-  const dateArray = scopeDate(displayDayLength, new Date())
+  const dateArray = scopeDate(props.length, new Date())
   console.log(dateArray)
 
-  const weekArray = Array(displayDayLength).fill(0).map((_, i) => {
-    return <div className='min-w-12 border-gray-200 border-r-2 border-b-2 text-center flex-grow -z-20 '>{dateArray[i].getDate()}</div>
+  const weekArray = Array(props.length).fill(0).map((_, i) => {
+    const localeDay = ['日', '月', '火', '水', '木', '金', '土']
+    return <div className='min-w-12 border-gray-200 border-r-2 border-b-2 text-center flex-grow -z-20 '>
+      <p>{dateArray[i].getDate()}</p>
+      <p>{localeDay[dateArray[i].getDay()]}</p>
+    </div>
   })
 
-  const schedulesArea = Array(displayDayLength).fill(0).map((_, i) => {
+  const schedulesArea = Array(props.length).fill(0).map((_, i) => {
     return <div className='min-w-12 border-gray-200 border-r-2 shrink flex-grow z-20' draggable={false}
       onMouseUp={(e) => console.log(e.clientY)}
       onMouseDown={(e) => console.log(e.clientX, e.target)}>{i}</div>
