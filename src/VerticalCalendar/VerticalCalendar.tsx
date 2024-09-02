@@ -7,27 +7,34 @@ export default function VerticalCalendar() {
       </div>
     )
   })
+  const scopeDate = (dateLength: number, startDate: Date) => {
+    const startUnix = Math.floor(startDate.getTime() / 1000)
+    const lengthSecond = 60 * 60 * 24 // lengthの秒数
+    return Array(dateLength).fill(0).map((_, i) => {
+      return new Date((startUnix + lengthSecond * i) * 1000)
+    })
+  }
+  const dateArray = scopeDate(displayDayLength, new Date())
+  console.log(dateArray)
 
   const weekArray = Array(displayDayLength).fill(0).map((_, i) => {
-    return <div className='min-w-12 border-gray-200 border-r-2 border-b-2 text-center flex-grow'>{i}</div>
+    return <div className='min-w-12 border-gray-200 border-r-2 border-b-2 text-center flex-grow -z-20 '>{dateArray[i].getDate()}</div>
   })
 
   const schedulesArea = Array(displayDayLength).fill(0).map((_, i) => {
-    return <div className='min-w-12 border-gray-200 border-r-2 shrink flex-grow'>{i}</div>
+    return <div className='min-w-12 border-gray-200 border-r-2 shrink flex-grow z-20' draggable={false}
+      onMouseUp={(e) => console.log(e.clientY)}
+      onMouseDown={(e) => console.log(e.clientX, e.target)}>{i}</div>
   })
 
   const timeAuxiliaryLine = Array(24).fill(0).map(() => {
     return (
-      <div className="after:content-[''] after:border-gray-100 after:border-b-2 after:w-full after:min-h-10 after:block">
+      <div draggable={false} className="after:content-[''] after:border-gray-100 after:border-b-2 after:w-full after:min-h-10 after:block">
       </div>
     )
   })
 
-  const dataRangeCalculator = (dateLength: number, startDate: Date) => {
-    const startUnix = Math.floor(startDate.getTime() / 1000)
-    const lengthSecond = 60 * 60 * 24 * dateLength // lengthの秒数
-    return new Date((startUnix + lengthSecond) * 1000)
-  }
+
 
   return (
     <>
