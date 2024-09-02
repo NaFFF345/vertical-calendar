@@ -17,10 +17,10 @@ export default function VerticalCalendar(props: { length: number, startDate: Dat
   console.log(dateArray)
 
   const weekArray = Array(props.length).fill(0).map((_, i) => {
-    const localeDay = ['日', '月', '火', '水', '木', '金', '土']
+    const dayString = Intl.DateTimeFormat('ja-JP', { weekday: 'short' }).format(dateArray[i])
     return <div className='min-w-12 border-gray-200 border-r-2 border-b-2 text-center flex-grow -z-20 '>
       <p>{dateArray[i].getDate()}</p>
-      <p>{localeDay[dateArray[i].getDay()]}</p>
+      <p>{dayString}</p>
     </div>
   })
 
