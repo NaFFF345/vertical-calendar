@@ -5,9 +5,9 @@ import VerticalCalendar from './VerticalCalendar/VerticalCalendar.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-      <section className={'w-8/12'}>
+    <section className={'w-8/12'}>
 
-    <VerticalCalendar />
-      </section>
+      <VerticalCalendar length={7} startDate={new Date()} />
+    </section>
   </React.StrictMode>,
 )
